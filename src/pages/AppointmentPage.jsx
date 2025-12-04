@@ -149,7 +149,7 @@ const AppointmentPage = () => {
             // If no params, require facility and doctor selection
             if (!hasParams) {
                 return formData.patientName && formData.age && formData.gender &&
-                    formData.phone && formData.facilityName && formData.doctor;
+                    formData.phone && formData.doctor;
             }
             // If doctorId param exists but came with facility selection needed
             if (doctorId && doctorsFacility && doctorsFacility.length > 0) {

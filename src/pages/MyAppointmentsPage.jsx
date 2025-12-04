@@ -114,7 +114,7 @@ const MyAppointmentsPage = () => {
                             <div className="flex flex-col md:flex-row gap-6">
                                 {/* Doctor Image */}
                                 <img
-                                    src={doctors.find(d => d.id === parseInt(appointment.doctorId))?.image}
+                                    src={`/images/${doctors.find(d => d.id === parseInt(appointment.doctorId))?.gender}-doc.jpg`}
                                     alt={appointment.doctorName}
                                     className="w-24 h-24 rounded-2xl object-cover"
                                 />
