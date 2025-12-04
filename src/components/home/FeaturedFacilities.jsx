@@ -19,6 +19,7 @@ const navigate= useNavigate();
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {mockData.facilities.map((facility, idx) => (
                         <motion.div
+onClick={() => navigate(`/facilities/${service.id}`)}
                             key={facility.id}
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -65,7 +66,6 @@ const navigate= useNavigate();
                                 </div>
 
                                 <button
-      onClick={() => navigate(`/facilities/${service.id}`)}
  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg">
                                     View Details
                                 </button>
