@@ -1,6 +1,7 @@
 import { Award, MapPin, Star } from "lucide-react";
 import React from "react";
 import { motion } from "motion/react";
+import { Link } from "react-router-dom";
 
 const FeaturedFacilities = ({ mockData }) => {
     return (
@@ -61,9 +62,11 @@ const FeaturedFacilities = ({ mockData }) => {
                                     ))}
                                 </div>
 
-                                <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg">
+                                <Link
+to={`/facilities/${service.id}`}
+ className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg">
                                     View Details
-                                </button>
+                                </Link>
                             </div>
                         </motion.div>
                     ))}
