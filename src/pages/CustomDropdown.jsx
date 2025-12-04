@@ -5,7 +5,9 @@ function CustomDropdown({
     value,
     onChange,
     placeholder = 'Select option',
-    name = 'value', // use `name` prop (not React's reserved `key`)
+    name = 'value',
+    disabled = false,
+    error = null,
 }) {
     const [open, setOpen] = useState(false);
     const rootRef = useRef();
@@ -43,9 +45,9 @@ function CustomDropdown({
                 onClick={() => setOpen(v => !v)}
                 className="w-full flex items-center justify-between gap-3 px-4 py-3 border rounded-xl bg-white"
             >
-                <div className="flex items-center gap-3">
+                <div className={`flex items-center gap-3 ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}>
                     {selected?.image ? (
-                        <img src={selected.image} alt={selected.name} className="w-8 h-8 rounded-full object-cover" />
+                        <img src={selected?.gender ? `/images/${selected?.gender}-doc.jpg` : selected?.image} alt={selected.name} className="w-8 h-8 rounded-full object-cover" />
                     ) : selected ? (
                         <div className="w-8 h-8 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center text-sm font-bold">
                             {getInitials(selected.name)}
@@ -64,6 +66,7 @@ function CustomDropdown({
                     <path fillRule="evenodd" d="M10 12a1 1 0 01-.707-.293l-3-3a1 1 0 111.414-1.414L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3A1 1 0 0110 12z" clipRule="evenodd" />
                 </svg>
             </button>
+            {error && <i className='text-red-500'>{error}</i>}
 
             {/* Dropdown Menu */}
             {open && (

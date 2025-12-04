@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import { Toaster } from 'react-hot-toast';
 import store from '../store/store';
 
@@ -16,8 +16,17 @@ import AboutPage from '../pages/AboutPage';
 import AppointmentPage from '../pages/AppointmentPage';
 import MyAppointmentsPage from '../pages/MyAppointmentsPage';
 import NotFoundPage from '../pages/NotFoundPage';
+import { fetchFacilities } from '@/store/slices/facilitiesSlice';
+import { fetchDoctors } from '@/store/slices/doctorsSlice';
 
 function AppRoutes() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFacilities());
+    dispatch(fetchDoctors());
+  }, [dispatch]);
+
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -35,7 +44,7 @@ function AppRoutes() {
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
-        
+
         <Toaster
           position="top-right"
           toastOptions={{

@@ -2,13 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
-import {
-    Calendar, Clock, User, Phone, Mail, MessageCircle,
-    CheckCircle, AlertCircle, ChevronLeft, ChevronRight,
-    MapPin, DollarSign
-} from 'lucide-react';
+import { Phone, Mail, CheckCircle, AlertCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { selectDoctorsByFacilityName, selectFacilityByDoctorId } from '../store/selectors';
+import { selectFacilityByDoctorId } from '../store/selectors';
 import CustomDropdown from './CustomDropdown';
 import { saveAppointmentToLocalStorage } from '../utils/localStorage';
 
@@ -40,35 +36,59 @@ const AppointmentPage = () => {
         facilityName: '',
     });
 
+    // Check if we have params - if not, we need facility selection first
+    const hasParams = doctorId || facilityId;
+
     useEffect(() => {
         if (doctorId) {
             const doctor = doctors.find(d => d.id === parseInt(doctorId));
             setSelectedDoctor(doctor);
         }
-        if (facilityId) {
-            const facility = facilities.find(f => f.id === parseInt(facilityId));
+        if (facilityId || formData.facilityId) {
+            const facility = facilities.find(f => f.id === parseInt(facilityId || formData.facilityId));
             setSelectedFacility(facility);
         }
-    }, [doctorId, facilityId, doctors, facilities]);
-
+    }, [doctorId, facilityId, doctors, facilities, formData]);
 
     useEffect(() => {
-        const fetchDoctors = async () => {
-            const doctors = await selectDoctorsByFacilityName(selectedFacility?.name);
-            setDoctorsHere(doctors);
-        };
-        fetchDoctors();
-    }, [selectedFacility]);
+        if (selectedFacility?.name && doctors.length > 0) {
+            // Filter doctors whose chamber matches the selected facility name
+            const filtered = doctors.filter(doc =>
+                doc.chamber === selectedFacility.name
+            );
+            console.log('Filtered doctors for facility:', selectedFacility.name, filtered);
+            setDoctorsHere(filtered);
+        } else {
+            setDoctorsHere([]);
+        }
+    }, [selectedFacility, doctors]);
 
-    // in a component (example)
     useEffect(() => {
         const run = async () => {
-            const facilities = await selectFacilityByDoctorId(doctorId);
-            setDoctorsFacility(facilities);
+            if (doctorId) {
+                const facilities = await selectFacilityByDoctorId(doctorId);
+                setDoctorsFacility(facilities);
+            }
         };
         run();
     }, [doctorId]);
 
+    useEffect(() => {
+        const fetchFacility = async () => {
+            if (formData?.facilityName) {
+                const facility = facilities.find(f => f.name === formData.facilityName);
+                setSelectedFacility(facility || null);
+            }
+        };
+        fetchFacility();
+    }, [formData?.facilityName, facilities]);
+
+    useEffect(() => {
+        if (formData?.doctor) {
+            const doctor = doctorsHere.find(d => d.id === parseInt(formData.doctor));
+            setSelectedDoctor(doctor || null);
+        }
+    }, [formData?.doctor, doctorsHere]);
 
     const timeSlots = [
         '09:00 AM', '09:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM',
@@ -93,7 +113,7 @@ const AppointmentPage = () => {
 
         // Final confirmation - build appointment payload
         const appointment = {
-            id: Date.now(), // simple unique id, replace with UUID if preferred
+            id: Date.now(),
             createdAt: new Date().toISOString(),
             facilityId: selectedFacility?.id ?? null,
             facilityName: selectedFacility?.name ?? '',
@@ -109,10 +129,9 @@ const AppointmentPage = () => {
             time: formData.timeSlot,
             reason: formData.reason,
             fee: selectedDoctor?.fee ?? null,
-            status: 'confirmed' // or 'pending' depending on business rules
+            status: 'confirmed'
         };
 
-        // Persist locally
         const saved = saveAppointmentToLocalStorage(appointment);
         if (!saved) {
             toast.error('Failed to save appointment locally. Please try again.');
@@ -120,16 +139,29 @@ const AppointmentPage = () => {
         }
 
         toast.success('Appointment booked successfully!');
-        // optional: reset form or keep it for UX
-        // navigate after a short delay
         setTimeout(() => {
             navigate('/my-appointments');
         }, 400);
     };
 
-
     const isStepValid = () => {
         if (step === 1) {
+            // If no params, require facility and doctor selection
+            if (!hasParams) {
+                return formData.patientName && formData.age && formData.gender &&
+                    formData.phone && formData.facilityName && formData.doctor;
+            }
+            // If doctorId param exists but came with facility selection needed
+            if (doctorId && doctorsFacility && doctorsFacility.length > 0) {
+                return formData.patientName && formData.age && formData.gender &&
+                    formData.phone && formData.facilityName;
+            }
+            // If facilityId param exists but need doctor selection
+            if (facilityId && !doctorId) {
+                return formData.patientName && formData.age && formData.gender &&
+                    formData.phone && formData.doctor;
+            }
+            // Both params provided
             return formData.patientName && formData.age && formData.gender && formData.phone;
         }
         if (step === 2) {
@@ -137,31 +169,7 @@ const AppointmentPage = () => {
         }
         return true;
     };
-
-    useEffect(() => {
-        const fetchFacility = async () => {
-            if (formData?.facility) {
-                const facilities = await selectFacilityByDoctorId(formData.facility);
-                setSelectedFacility(facilities[0] || null);
-            }
-        };
-        fetchFacility();
-    }, [formData?.facility]);
-
-    if (!selectedFacility && !doctorsFacility) {
-        return (
-            <div className="min-h-screen flex items-center justify-center">
-                <div className="text-center">
-                    <AlertCircle className="w-20 h-20 text-gray-400 mx-auto mb-4" />
-                    <h2 className="text-2xl font-bold text-gray-900 mb-2">Facility not found</h2>
-                    <button onClick={() => navigate('/facilities')} className="text-blue-600 hover:underline">
-                        Go back to facilities
-                    </button>
-                </div>
-            </div>
-        );
-    }
-
+    console.log(formData)
     return (
         <div className="min-h-screen bg-linear-to-br from-purple-50 via-blue-50 to-pink-50 py-16">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -225,22 +233,19 @@ const AppointmentPage = () => {
                         </div>
                     )}
 
-                    {
-                        selectedFacility && (
-                            <div className="bg-linear-to-br from-purple-100 to-blue-100 rounded-2xl p-6 mb-8">
-                                <div className="flex items-center gap-4">
-                                    <img src={selectedFacility.image} alt={selectedFacility.name} className="w-16 h-16 rounded-full" />
-                                    <div>
-                                        <h3 className="text-xl font-bold text-gray-900">{selectedFacility.name}</h3>
-                                        <p className="text-purple-600 font-semibold">{selectedFacility.address}</p>
-                                    </div>
+                    {selectedFacility && (
+                        <div className="bg-linear-to-br from-purple-100 to-blue-100 rounded-2xl p-6 mb-8">
+                            <div className="flex items-center gap-4">
+                                <img src={selectedFacility.image} alt={selectedFacility.name} className="w-16 h-16 rounded-full" />
+                                <div>
+                                    <h3 className="text-xl font-bold text-gray-900">{selectedFacility.name}</h3>
+                                    <p className="text-purple-600 font-semibold">{selectedFacility.address}</p>
                                 </div>
                             </div>
-                        )
-                    }
+                        </div>
+                    )}
 
                     <form onSubmit={handleSubmit}>
-                        {/* Step 1: Patient Information */}
                         {step === 1 && (
                             <motion.div
                                 initial={{ opacity: 0, x: -20 }}
@@ -250,6 +255,72 @@ const AppointmentPage = () => {
                                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Patient Information</h2>
 
                                 <div className="grid md:grid-cols-2 gap-6">
+                                    {!hasParams && (
+                                        <>
+                                            <div className="md:col-span-2">
+                                                <label className="block text-sm font-bold text-gray-700 mb-2">
+                                                    Select Facility *
+                                                </label>
+                                                <CustomDropdown
+                                                    data={facilities}
+                                                    value={selectedFacility?.id || formData.facilityId}
+                                                    onChange={handleInputChange}
+                                                    placeholder="Select facility"
+                                                    name="facilityId"
+                                                />
+                                            </div>
+
+                                            {formData.facilityId && (
+                                                <div className="md:col-span-2">
+                                                    <label className="block text-sm font-bold text-gray-700 mb-2">
+                                                        Select Doctor *
+                                                    </label>
+                                                    <CustomDropdown
+                                                        data={doctorsHere}
+                                                        value={formData.doctor}
+                                                        onChange={handleInputChange}
+                                                        placeholder="Select doctor"
+                                                        name="doctor"
+                                                        disabled={doctorsHere.length === 0}
+                                                        error={doctorsHere.length === 0 ? 'No doctors available for the selected facility' : null}
+                                                    />
+                                                </div>
+                                            )}
+                                        </>
+                                    )}
+
+                                    {/* If doctorId provided but multiple facilities */}
+                                    {doctorId && doctorsFacility && doctorsFacility.length > 0 && (
+                                        <div className="md:col-span-2">
+                                            <label className="block text-sm font-bold text-gray-700 mb-2">
+                                                Select Facility *
+                                            </label>
+                                            <CustomDropdown
+                                                data={doctorsFacility}
+                                                value={formData.facilityName}
+                                                onChange={handleInputChange}
+                                                placeholder="Select facility"
+                                                name="facilityName"
+                                            />
+                                        </div>
+                                    )}
+
+                                    {/* If facilityId provided but need doctor */}
+                                    {facilityId && !doctorId && doctorsHere.length > 0 && (
+                                        <div className="md:col-span-2">
+                                            <label className="block text-sm font-bold text-gray-700 mb-2">
+                                                Select Doctor *
+                                            </label>
+                                            <CustomDropdown
+                                                data={doctorsHere}
+                                                value={formData.doctor}
+                                                onChange={handleInputChange}
+                                                placeholder="Select doctor"
+                                                name="doctor"
+                                            />
+                                        </div>
+                                    )}
+
                                     <div>
                                         <label className="block text-sm font-bold text-gray-700 mb-2">
                                             Patient Name *
@@ -294,34 +365,6 @@ const AppointmentPage = () => {
                                             name="gender"
                                         />
                                     </div>
-                                    {doctorsFacility &&
-                                        <div>
-                                            <label className="block text-sm font-bold text-gray-700 mb-2">
-                                                Select Facility *
-                                            </label>
-                                            <CustomDropdown
-                                                data={doctorsFacility}
-                                                value={formData.facilityName}
-                                                onChange={handleInputChange}
-                                                placeholder="Select facility"
-                                                name="facilityName"
-                                            />
-                                        </div>
-                                    }
-                                    {selectedFacility && doctorsHere && !doctorId &&
-                                        <div>
-                                            <label className="block text-sm font-bold text-gray-700 mb-2">
-                                                Select Doctor
-                                            </label>
-                                            <CustomDropdown
-                                                data={doctorsHere}
-                                                value={formData.doctor}
-                                                onChange={handleInputChange}
-                                                placeholder="Select doctor"
-                                                name="doctor"
-                                            />
-                                        </div>
-                                    }
 
                                     <div>
                                         <label className="block text-sm font-bold text-gray-700 mb-2">
