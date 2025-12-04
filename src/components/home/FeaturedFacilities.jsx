@@ -1,9 +1,11 @@
 import { Award, MapPin, Star } from "lucide-react";
 import React from "react";
 import { motion } from "motion/react";
-import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const FeaturedFacilities = ({ mockData }) => {
+const navigate= useNavigate();
+
     return (
         <section className="py-28 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -62,11 +64,11 @@ const FeaturedFacilities = ({ mockData }) => {
                                     ))}
                                 </div>
 
-                                <Link
-to={`/facilities/${service.id}`}
+                                <button
+      onClick={() => navigate(`/facilities/${service.id}`)}
  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg">
                                     View Details
-                                </Link>
+                                </button>
                             </div>
                         </motion.div>
                     ))}
