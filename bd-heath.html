@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>BD Healthcare Directory - Find Hospitals, Doctors & Services</title>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+		<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+		<style>
+			body {
+				font-family: 'Inter', sans-serif;
+			}
+
+			.gradient-bg {
+				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			}
+
+			.gradient-primary {
+				background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+			}
+
+			.glass {
+				backdrop-filter: blur(20px);
+				background: rgba(255, 255, 255, 0.1);
+			}
+
+			@keyframes fadeIn {
+				from {
+					opacity: 0;
+					transform: translateY(30px);
+				}
+
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			@keyframes slideUp {
+				from {
+					opacity: 0;
+					transform: translateY(50px);
+				}
+
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+		</style>
+		<script>
+			tailwind.config = {
+				theme: {
+					extend: {
+						animation: {
+							'fade-in': 'fadeIn 0.8s ease-out forwards',
+							'slide-up': 'slideUp 0.6s ease-out forwards'
+						}
+					}
+				}
+			}
+		</script>
+	</head>
+	<body class="bg-gray-50 text-gray-900 antialiased">
+		<!-- Header -->
+		<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-200/50 shadow-sm transition-all duration-300">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="flex justify-between items-center py-4">
+					<div class="flex items-center space-x-3">
+						<div class="w-12 h-12 bg-linear-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
+							<i data-lucide="heart-pulse" class="w-7 h-7 text-white"></i>
+						</div>
+						<div>
+							<h1 class="text-2xl font-bold bg-linear-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">BD Healthcare</h1>
+							<p class="text-xs text-gray-500 font-medium">Directory Pro</p>
+						</div>
+					</div>
+					<div class="hidden md:flex flex-1 max-w-md mx-12 relative">
+						<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+							<i data-lucide="search" class="h-5 w-5 text-gray-400"></i>
+						</div>
+						<input type="text" placeholder="Search hospitals, doctors, clinics..." class="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-2xl bg-white/80 backdrop-blur-sm 
+                              focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 shadow-sm">
+					</div>
+					<div class="hidden md:flex items-center space-x-4">
+						<button class="px-6 py-2.5 text-sm font-medium text-gray-700 bg-white/80 hover:bg-white 
+                               border border-gray-200 rounded-xl backdrop-blur-sm transition-all duration-200 
+                               shadow-sm hover:shadow-md hover:scale-105"> Emergency </button>
+						<button class="px-6 py-2.5 text-sm font-semibold text-white bg-linear-to-r from-blue-600 to-blue-700 
+                               hover:from-blue-700 hover:to-blue-800 rounded-xl backdrop-blur-sm transition-all duration-200 
+                               shadow-lg hover:shadow-xl hover:scale-105"> Book Appointment </button>
+					</div>
+					<button class="md:hidden p-2 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-200 hover:scale-105">
+						<i data-lucide="menu" class="w-6 h-6"></i>
+					</button>
+				</div>
+			</div>
+		</header>
+		<!-- Hero Section -->
+		<section class="gradient-bg text-white overflow-hidden pt-28 pb-32 relative">
+			<div class="absolute inset-0 bg-black/15"></div>
+			<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="grid lg:grid-cols-2 gap-16 items-center">
+					<div class="lg:pr-16 space-y-8 animate-[fade-in_0.8s_ease-out_forwards]">
+						<div class="inline-flex items-center px-5 py-2.5 rounded-full bg-white/20 backdrop-blur-sm border border-white/30">
+							<i data-lucide="award" class="w-5 h-5 mr-2"></i>
+							<span class="text-sm font-semibold">Trusted by 500K+ Bangladeshis</span>
+						</div>
+						<h1 class="text-5xl md:text-6xl lg:text-7xl font-black leading-tight animate-[slide-up_0.6s_ease-out_0.2s_forwards]"> Find Best <br class="hidden lg:block">
+							<span class="bg-linear-to-r from-white via-blue-50 to-transparent bg-clip-text">Healthcare</span>
+							<br> Services Near You
+						</h1>
+						<p class="text-xl text-blue-100 leading-relaxed max-w-lg animate-[fade-in_0.8s_ease-out_0.4s_forwards]"> Complete directory of hospitals, doctors, clinics, pharmacies & emergency services across Bangladesh </p>
+						<div class="bg-white/10 backdrop-blur-xl rounded-3xl p-1 border border-white/20 shadow-2xl 
+                           animate-[fade-in_0.8s_ease-out_0.6s_forwards]">
+							<div class="flex bg-white rounded-2xl p-5 shadow-2xl">
+								<div class="flex-1 relative">
+									<i data-lucide="hospital" class="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-400"></i>
+									<input type="text" placeholder="Enter hospital name, doctor or location" class="w-full pl-14 pr-4 py-4 text-lg border-none focus:ring-0 bg-transparent 
+                                          font-medium placeholder-gray-500">
+								</div>
+								<div class="w-32">
+									<button class="w-full h-full bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 
+                                           text-white font-bold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 
+                                           px-6 py-4 flex items-center justify-center hover:scale-105">
+										<i data-lucide="search" class="w-5 h-5 inline mr-2"></i> Search Now </button>
+								</div>
+							</div>
+						</div>
+						<div class="flex flex-wrap gap-10 mt-20 pt-10 border-t border-white/20 
+                           animate-[fade-in_0.8s_ease-out_0.8s_forwards]">
+							<div class="text-center min-w-[120px]">
+								<div class="text-4xl font-black text-blue-100 mb-2">5,000+</div>
+								<div class="text-blue-200 font-medium">Hospitals & Clinics</div>
+							</div>
+							<div class="text-center min-w-[120px]">
+								<div class="text-4xl font-black text-blue-100 mb-2">25,000+</div>
+								<div class="text-blue-200 font-medium">Doctors</div>
+							</div>
+							<div class="text-center">
+								<div class="text-4xl font-black text-blue-100 mb-2">1M+</div>
+								<div class="text-blue-200 font-medium">Appointments Booked</div>
+							</div>
+						</div>
+					</div>
+					<div class="relative animate-[slide-up_0.6s_ease-out_0.5s_forwards] lg:translate-y-10">
+						<div class="relative z-10 mx-auto max-w-md lg:max-w-none">
+							<img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=85" alt="Healthcare professionals" class="w-full h-[550px] lg:h-[650px] object-cover rounded-3xl shadow-2xl border-4 border-white/20">
+						</div>
+						<div class="absolute -top-6 -right-12 w-80 h-80 bg-linear-to-r from-blue-400/30 to-purple-400/30 
+                           rounded-full blur-3xl animate-pulse"></div>
+						<div class="absolute -bottom-6 left-10 w-64 h-64 bg-linear-to-r from-emerald-400/20 to-blue-400/20 
+                           rounded-full blur-3xl animate-pulse delay-1000"></div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Stats Section -->
+		<section class="py-28 bg-white/80 backdrop-blur-sm">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="grid md:grid-cols-4 gap-8 text-center">
+					<div class="group p-8 rounded-3xl bg-linear-to-br from-emerald-50 to-emerald-100 hover:shadow-2xl 
+                       hover:-translate-y-3 transition-all duration-500 border border-emerald-200/50">
+						<div class="w-24 h-24 mx-auto mb-6 bg-linear-to-r from-emerald-500 to-emerald-600 rounded-3xl 
+                           flex items-center justify-center shadow-2xl group-hover:scale-110 transition-all duration-300">
+							<i data-lucide="hospital" class="w-12 h-12 text-white"></i>
+						</div>
+						<h3 class="text-4xl font-black text-gray-900 mb-3">1,247</h3>
+						<p class="text-xl font-semibold text-gray-700">Hospitals</p>
+					</div>
+					<div class="group p-8 rounded-3xl bg-linear-to-br from-blue-50 to-blue-100 hover:shadow-2xl 
+                       hover:-translate-y-3 transition-all duration-500 border border-blue-200/50">
+						<div class="w-24 h-24 mx-auto mb-6 bg-linear-to-r from-blue-500 to-blue-600 rounded-3xl 
+                           flex items-center justify-center shadow-2xl group-hover:scale-110 transition-all duration-300">
+							<i data-lucide="user" class="w-12 h-12 text-white"></i>
+						</div>
+						<h3 class="text-4xl font-black text-gray-900 mb-3">8,542</h3>
+						<p class="text-xl font-semibold text-gray-700">Doctors</p>
+					</div>
+					<div class="group p-8 rounded-3xl bg-linear-to-br from-purple-50 to-purple-100 hover:shadow-2xl 
+                       hover:-translate-y-3 transition-all duration-500 border border-purple-200/50">
+						<div class="w-24 h-24 mx-auto mb-6 bg-linear-to-r from-purple-500 to-purple-600 rounded-3xl 
+                           flex items-center justify-center shadow-2xl group-hover:scale-110 transition-all duration-300">
+							<i data-lucide="truck" class="w-12 h-12 text-white"></i>
+						</div>
+						<h3 class="text-4xl font-black text-gray-900 mb-3">342</h3>
+						<p class="text-xl font-semibold text-gray-700">Ambulance Services</p>
+					</div>
+					<div class="group p-8 rounded-3xl bg-linear-to-br from-orange-50 to-orange-100 hover:shadow-2xl 
+                       hover:-translate-y-3 transition-all duration-500 border border-orange-200/50">
+						<div class="w-24 h-24 mx-auto mb-6 bg-linear-to-r from-orange-500 to-orange-600 rounded-3xl 
+                           flex items-center justify-center shadow-2xl group-hover:scale-110 transition-all duration-300">
+							<i data-lucide="droplets" class="w-12 h-12 text-white"></i>
+						</div>
+						<h3 class="text-4xl font-black text-gray-900 mb-3">156</h3>
+						<p class="text-xl font-semibold text-gray-700">Blood Banks</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Services Grid -->
+		<section class="py-28 bg-gray-50">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="text-center mb-24">
+					<h2 class="text-5xl font-black bg-linear-to-r from-gray-900 via-gray-800 to-gray-700 bg-clip-text text-transparent mb-6"> Healthcare Services </h2>
+					<p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"> Find and book healthcare services across Bangladesh with verified listings and real patient reviews </p>
+				</div>
+				<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+					<a href="#" class="group bg-white/70 backdrop-blur-sm rounded-4xl p-10 hover:shadow-2xl hover:-translate-y-4 
+                              transition-all duration-500 border border-gray-100 hover:border-blue-200 overflow-hidden hover:bg-white">
+						<div class="w-20 h-20 bg-linear-to-r from-blue-500 to-blue-600 rounded-3xl flex items-center justify-center 
+                           mb-8 group-hover:scale-110 transition-all duration-300 mx-auto shadow-xl">
+							<i data-lucide="hospital" class="w-10 h-10 text-white"></i>
+						</div>
+						<h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">Hospitals</h3>
+						<p class="text-gray-600 mb-8 text-center leading-relaxed">Multi-specialty hospitals, emergency care, ICU services</p>
+						<div class="flex items-center justify-center text-blue-600 font-bold text-lg group-hover:translate-x-2 transition-all duration-300">
+							<i data-lucide="arrow-right" class="w-6 h-6 mr-2"></i> View All Hospitals
+						</div>
+					</a>
+					<a href="#" class="group bg-white/70 backdrop-blur-sm rounded-4xl p-10 hover:shadow-2xl hover:-translate-y-4 
+                              transition-all duration-500 border border-gray-100 hover:border-emerald-200 overflow-hidden hover:bg-white">
+						<div class="w-20 h-20 bg-linear-to-r from-emerald-500 to-emerald-600 rounded-3xl flex items-center justify-center 
+                           mb-8 group-hover:scale-110 transition-all duration-300 mx-auto shadow-xl">
+							<i data-lucide="user" class="w-10 h-10 text-white"></i>
+						</div>
+						<h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">Doctors</h3>
+						<p class="text-gray-600 mb-8 text-center leading-relaxed">Find specialist doctors by name, location or specialty</p>
+						<div class="flex items-center justify-center text-emerald-600 font-bold text-lg group-hover:translate-x-2 transition-all duration-300">
+							<i data-lucide="arrow-right" class="w-6 h-6 mr-2"></i> Find Doctors
+						</div>
+					</a>
+					<a href="#" class="group bg-white/70 backdrop-blur-sm rounded-4xl p-10 hover:shadow-2xl hover:-translate-y-4 
+                              transition-all duration-500 border border-gray-100 hover:border-purple-200 overflow-hidden hover:bg-white">
+						<div class="w-20 h-20 bg-linear-to-r from-purple-500 to-purple-600 rounded-3xl flex items-center justify-center 
+                           mb-8 group-hover:scale-110 transition-all duration-300 mx-auto shadow-xl">
+							<i data-lucide="calendar" class="w-10 h-10 text-white"></i>
+						</div>
+						<h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">Appointments</h3>
+						<p class="text-gray-600 mb-8 text-center leading-relaxed">Book appointments online instantly with confirmed slots</p>
+						<div class="flex items-center justify-center text-purple-600 font-bold text-lg group-hover:translate-x-2 transition-all duration-300">
+							<i data-lucide="arrow-right" class="w-6 h-6 mr-2"></i> Book Now
+						</div>
+					</a>
+					<a href="#" class="group bg-white/70 backdrop-blur-sm rounded-4xl p-10 hover:shadow-2xl hover:-translate-y-4 
+                              transition-all duration-500 border border-gray-100 hover:border-orange-200 overflow-hidden hover:bg-white">
+						<div class="w-20 h-20 bg-linear-to-r from-orange-500 to-orange-600 rounded-3xl flex items-center justify-center 
+                           mb-8 group-hover:scale-110 transition-all duration-300 mx-auto shadow-xl">
+							<i data-lucide="phone-call" class="w-10 h-10 text-white"></i>
+						</div>
+						<h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">Emergency</h3>
+						<p class="text-gray-600 mb-8 text-center leading-relaxed">24/7 emergency contacts, ambulance & blood bank services</p>
+						<div class="flex items-center justify-center text-orange-600 font-bold text-lg group-hover:translate-x-2 transition-all duration-300">
+							<i data-lucide="arrow-right" class="w-6 h-6 mr-2"></i> Emergency Help
+						</div>
+					</a>
+				</div>
+			</div>
+		</section>
+		<!-- Emergency CTA -->
+		<section class="bg-linear-to-r from-red-600 via-red-700 to-red-800 text-white py-28 relative overflow-hidden">
+			<div class="absolute inset-0 bg-black/20"></div>
+			<div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+				<div class="inline-flex items-center bg-white/20 backdrop-blur-xl px-8 py-4 rounded-2xl mb-12 border border-white/30 
+                    font-bold text-lg shadow-2xl">
+					<i data-lucide="alert-triangle" class="w-7 h-7 mr-3"></i>
+					<span>LIFE-SAVING EMERGENCY SERVICES - AVAILABLE 24/7</span>
+				</div>
+				<h2 class="text-5xl md:text-6xl font-black mb-8 leading-tight drop-shadow-2xl">Emergency Services</h2>
+				<p class="text-2xl text-red-100 mb-16 max-w-4xl mx-auto leading-relaxed drop-shadow-lg"> Instant access to ambulance services, emergency hospitals, blood banks and 24/7 helplines across Bangladesh </p>
+				<div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+					<div class="bg-white/15 backdrop-blur-2xl rounded-3xl p-12 hover:scale-105 hover:shadow-2xl transition-all duration-500 
+                       border border-white/30 group">
+						<div class="text-6xl mb-8">🚑</div>
+						<h3 class="text-4xl font-black mb-6 group-hover:translate-y-2 transition-all duration-300">999</h3>
+						<p class="text-2xl font-bold">Emergency Helpline</p>
+					</div>
+					<div class="bg-white/15 backdrop-blur-2xl rounded-3xl p-12 hover:scale-105 hover:shadow-2xl transition-all duration-500 
+                       border border-white/30 group">
+						<div class="text-6xl mb-8">🩸</div>
+						<h3 class="text-4xl font-black mb-6 group-hover:translate-y-2 transition-all duration-300">Blood Bank</h3>
+						<p class="text-2xl font-bold">Find Donors Now</p>
+					</div>
+					<div class="bg-white/15 backdrop-blur-2xl rounded-3xl p-12 hover:scale-105 hover:shadow-2xl transition-all duration-500 
+                       border border-white/30 group">
+						<div class="text-6xl mb-8">🚨</div>
+						<h3 class="text-4xl font-black mb-6 group-hover:translate-y-2 transition-all duration-300">Ambulance</h3>
+						<p class="text-2xl font-bold">Nearest Services</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Footer -->
+		<footer class="bg-gray-900/95 backdrop-blur-xl text-white py-20 border-t border-gray-800/50">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="grid md:grid-cols-4 gap-12 mb-16">
+					<div class="md:col-span-2">
+						<div class="flex items-center space-x-4 mb-8">
+							<div class="w-16 h-16 bg-linear-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-2xl">
+								<i data-lucide="heart-pulse" class="w-9 h-9 text-white"></i>
+							</div>
+							<div>
+								<h3 class="text-3xl font-black">BD Healthcare</h3>
+								<p class="text-gray-400 text-lg mt-1">Your trusted healthcare companion across Bangladesh</p>
+							</div>
+						</div>
+						<div class="flex space-x-4">
+							<a href="#" class="group w-14 h-14 bg-gray-800/50 hover:bg-gray-700 rounded-2xl flex items-center justify-center 
+                                      transition-all duration-300 hover:scale-110 backdrop-blur-sm border border-gray-700/50">
+								<i data-lucide="facebook" class="w-7 h-7 group-hover:-translate-y-1 transition-all duration-300"></i>
+							</a>
+							<a href="#" class="group w-14 h-14 bg-gray-800/50 hover:bg-gray-700 rounded-2xl flex items-center justify-center 
+                                      transition-all duration-300 hover:scale-110 backdrop-blur-sm border border-gray-700/50">
+								<i data-lucide="twitter" class="w-7 h-7 group-hover:-translate-y-1 transition-all duration-300"></i>
+							</a>
+							<a href="#" class="group w-14 h-14 bg-gray-800/50 hover:bg-gray-700 rounded-2xl flex items-center justify-center 
+                                      transition-all duration-300 hover:scale-110 backdrop-blur-sm border border-gray-700/50">
+								<i data-lucide="instagram" class="w-7 h-7 group-hover:-translate-y-1 transition-all duration-300"></i>
+							</a>
+						</div>
+					</div>
+					<div>
+						<h4 class="text-2xl font-bold mb-8">Quick Links</h4>
+						<ul class="space-y-4 text-gray-400">
+							<li>
+								<a href="#" class="hover:text-white font-semibold transition-colors group">Hospitals</a>
+							</li>
+							<li>
+								<a href="#" class="hover:text-white font-semibold transition-colors group">Doctors</a>
+							</li>
+							<li>
+								<a href="#" class="hover:text-white font-semibold transition-colors group">Appointments</a>
+							</li>
+							<li>
+								<a href="#" class="hover:text-white font-semibold transition-colors group">Emergency</a>
+							</li>
+						</ul>
+					</div>
+					<div>
+						<h4 class="text-2xl font-bold mb-8">Services</h4>
+						<ul class="space-y-4 text-gray-400">
+							<li>
+								<a href="#" class="hover:text-white font-semibold transition-colors group">Lab Tests</a>
+							</li>
+							<li>
+								<a href="#" class="hover:text-white font-semibold transition-colors group">Pharmacy</a>
+							</li>
+							<li>
+								<a href="#" class="hover:text-white font-semibold transition-colors group">Blood Bank</a>
+							</li>
+							<li>
+								<a href="#" class="hover:text-white font-semibold transition-colors group">Ambulance</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="border-t border-gray-800 pt-12 text-center text-gray-400 text-lg">
+					<p>&copy; 2025 BD Healthcare Directory. All rights reserved. | Made with ❤️ for Bangladesh [file:1]</p>
+				</div>
+			</div>
+		</footer>
+		<script>
+			// Initialize Lucide icons
+			lucide.createIcons();
+			// Header scroll effect
+			let lastScroll = 0;
+			window.addEventListener('scroll', () => {
+				const header = document.querySelector('header');
+				if (window.scrollY > 100) {
+					header.classList.add('shadow-lg', 'bg-white/100');
+				} else {
+					header.classList.remove('shadow-lg', 'bg-white/100');
+				}
+				// Header hide/show on scroll
+				const currentScroll = window.pageYOffset;
+				if (currentScroll <= 0) {
+					header.style.transform = 'translateY(0)';
+				}
+				if (currentScroll > lastScroll && !header.classList.contains('hidden')) {
+					header.style.transform = 'translateY(-100%)';
+				} else {
+					header.style.transform = 'translateY(0)';
+				}
+				lastScroll = currentScroll;
+			});
+			// Intersection Observer for animations
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						entry.target.style.animationPlayState = 'running';
+					}
+				});
+			});
+			document.querySelectorAll('.animate\\:fade-in, .animate\\:slide-up').forEach(el => {
+				observer.observe(el);
+			});
+		</script>
+	</body>
+</html>
