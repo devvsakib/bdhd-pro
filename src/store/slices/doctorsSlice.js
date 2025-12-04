@@ -1,67 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-const mockDoctors = [
-    {
-        id: 1,
-        name: 'Dr. Ahmed Hassan',
-        specialty: 'Cardiologist',
-        qualification: 'MBBS, FCPS (Cardiology), MD',
-        experience: 15,
-        chamber: 'Square Hospital',
-        schedule: 'Sat-Thu: 5:00 PM - 8:00 PM',
-        fee: 1500,
-        rating: 4.9,
-        reviews: 432,
-        verified: true,
-        image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=150&h=150&fit=crop'
-    },
-    {
-        id: 2,
-        name: 'Dr. Farhana Rahman',
-        specialty: 'Gynecologist',
-        qualification: 'MBBS, FCPS (Gynecology)',
-        experience: 12,
-        chamber: 'United Hospital',
-        schedule: 'Sun-Thu: 4:00 PM - 7:00 PM',
-        fee: 1200,
-        rating: 4.8,
-        reviews: 289,
-        verified: true,
-        image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=150&h=150&fit=crop'
-    },
-    {
-        id: 3,
-        name: 'Dr. Kamal Hossain',
-        specialty: 'Neurologist',
-        qualification: 'MBBS, FCPS, FRCP',
-        experience: 18,
-        chamber: 'Apollo Hospital',
-        schedule: 'Everyday: 6:00 PM - 9:00 PM',
-        fee: 2000,
-        rating: 4.9,
-        reviews: 567,
-        verified: true,
-        image: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=150&h=150&fit=crop'
-    },
-    {
-        id: 4,
-        name: 'Dr. Nusrat Jahan',
-        specialty: 'Pediatrician',
-        qualification: 'MBBS, FCPS (Pediatrics)',
-        experience: 10,
-        chamber: 'Popular Diagnostic',
-        schedule: 'Sat-Thu: 3:00 PM - 6:00 PM',
-        fee: 1000,
-        rating: 4.7,
-        reviews: 324,
-        verified: true,
-        image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop'
-    }
-];
+import doctorService from '../../services/doctorService';
+
+const { getAll } = doctorService;
 
 const initialState = {
-    doctors: mockDoctors,
-    allDoctors: mockDoctors,
+    doctors: [],
+    allDoctors: [],
     selectedDoctor: null,
     filters: {
         specialty: 'all',
@@ -73,10 +18,10 @@ const initialState = {
 
 export const fetchDoctors = createAsyncThunk(
     'doctors/fetchDoctors',
-    async (filters, { rejectWithValue }) => {
+    async (_, { rejectWithValue }) => {
         try {
-            await new Promise(resolve => setTimeout(resolve, 500));
-            return mockDoctors;
+            const response = await getAll();  // async call
+            return response.data;
         } catch (error) {
             return rejectWithValue(error.message);
         }
@@ -87,8 +32,8 @@ export const fetchDoctorById = createAsyncThunk(
     'doctors/fetchDoctorById',
     async (id, { rejectWithValue }) => {
         try {
-            await new Promise(resolve => setTimeout(resolve, 300));
-            const doctor = mockDoctors.find(d => d.id === parseInt(id));
+             const response = await getAll();
+            const doctor = response.data.find(d => d.id === parseInt(id));
             if (!doctor) throw new Error('Doctor not found');
             return doctor;
         } catch (error) {

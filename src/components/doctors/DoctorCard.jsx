@@ -13,11 +13,11 @@ const DoctorCard = ({ doctor }) => {
       className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-200/50 cursor-pointer group"
     >
       {/* Header with Image */}
-      <div className="relative bg-gradient-to-br from-purple-100 to-blue-100 p-8">
+      <div className="relative bg-linear-to-br from-purple-100 to-blue-100 p-8">
         <div className="flex items-start gap-6">
           <div className="relative">
             <img 
-              src={doctor.image} 
+              src={`/images/${doctor.gender}-doc.jpg`} 
               alt={doctor.name}
               className="w-28 h-28 rounded-2xl object-cover border-4 border-white shadow-xl group-hover:scale-110 transition-transform duration-300"
             />
@@ -73,7 +73,7 @@ const DoctorCard = ({ doctor }) => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl">
+        <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-linear-to-br from-purple-50 to-blue-50 rounded-2xl">
           <div className="text-center">
             <p className="text-2xl font-black text-purple-600">{doctor.experience}+</p>
             <p className="text-sm text-gray-600 font-semibold">Years Exp.</p>
@@ -85,7 +85,7 @@ const DoctorCard = ({ doctor }) => {
         </div>
 
         {/* Action Button */}
-        <button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-bold py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg group-hover:scale-105">
+        <button className="w-full bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-bold py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg group-hover:scale-105">
           <Calendar className="w-5 h-5" />
           Book Appointment
         </button>

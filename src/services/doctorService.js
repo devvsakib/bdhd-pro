@@ -3,6 +3,7 @@ const getAll = async () => ({
     data: [
         {
             id: 1,
+            gender: "male",
             name: 'Dr. Ahmed Hassan',
             specialty: 'Cardiologist',
             qualification: 'MBBS, FCPS (Cardiology), MD',
@@ -17,6 +18,7 @@ const getAll = async () => ({
         },
         {
             id: 2,
+            gender: "male",
             name: 'Dr. Farhana Rahman',
             specialty: 'Gynecologist',
             qualification: 'MBBS, FCPS (Gynecology)',
@@ -31,6 +33,7 @@ const getAll = async () => ({
         },
         {
             id: 3,
+            gender: "male",
             name: 'Dr. Kamal Hossain',
             specialty: 'Neurologist',
             qualification: 'MBBS, FCPS, FRCP',
@@ -45,6 +48,7 @@ const getAll = async () => ({
         },
         {
             id: 4,
+            gender: "female",
             name: 'Dr. Nusrat Jahan',
             specialty: 'Pediatrician',
             qualification: 'MBBS, FCPS (Pediatrics)',
@@ -59,6 +63,7 @@ const getAll = async () => ({
         },
         {
             id: 5,
+            gender: "male",
             name: 'Dr. Mohammad Rafiq',
             specialty: 'General Surgeon',
             qualification: 'MBBS, MS (Surgery)',
@@ -73,6 +78,7 @@ const getAll = async () => ({
         },
         {
             id: 6,
+            gender: "female",
             name: 'Dr. Ayesha Siddiqua',
             specialty: 'Endocrinologist',
             qualification: 'MBBS, FCPS (Medicine), MD (Endocrinology)',
@@ -87,6 +93,7 @@ const getAll = async () => ({
         },
         {
             id: 7,
+            gender: "male",
             name: 'Dr. Imran Karim',
             specialty: 'Orthopedic Surgeon',
             qualification: 'MBBS, MS (Orthopedics)',
@@ -101,6 +108,7 @@ const getAll = async () => ({
         },
         {
             id: 8,
+            gender: "female",
             name: 'Dr. Shampa Akter',
             specialty: 'Oncologist',
             qualification: 'MBBS, FCPS (Oncology)',
@@ -115,6 +123,7 @@ const getAll = async () => ({
         },
         {
             id: 9,
+            gender: "male",
             name: 'Dr. Salman Rahman',
             specialty: 'Pulmonologist',
             qualification: 'MBBS, MD (Respiratory Medicine)',
@@ -129,6 +138,7 @@ const getAll = async () => ({
         },
         {
             id: 10,
+            gender: "female",
             name: 'Dr. Laila Begum',
             specialty: 'ENT Specialist',
             qualification: 'MBBS, FCPS (ENT)',

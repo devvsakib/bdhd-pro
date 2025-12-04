@@ -74,7 +74,7 @@ const DoctorProfilePage = () => {
                         >
                             <div className="w-48 h-48 lg:w-56 lg:h-56 rounded-3xl overflow-hidden border-8 border-white/30 shadow-2xl backdrop-blur-xl">
                                 <img
-                                    src={selectedDoctor.image}
+                                    src={`/images/${selectedDoctor.gender}-doc.jpg`} 
                                     alt={selectedDoctor.name}
                                     className="w-full h-full object-cover"
                                 />

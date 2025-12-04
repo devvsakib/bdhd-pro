@@ -35,7 +35,6 @@ export default function Header() {
   return (
     <header className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-xl shadow-lg' : 'bg-white/95 backdrop-blur-xl'
       } border-b border-gray-200/50`}>
-        <title>Bangladesh Healthcare Directory PRO - Home</title>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
@@ -43,15 +42,15 @@ export default function Header() {
             onClick={() => navigate('/')}
             className="flex items-center space-x-3 cursor-pointer"
           >
-            <div className="w-12 h-12 bg-linear-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
-              <HeartPulse className="w-7 h-7 text-white" />
+            <div className="w-full h-auto rounded-2xl">
+              <img src="/images/logo-text.png" alt="BD Healthcare Logo" className='w-2/3' />
             </div>
-            <div>
+            {/* <div>
               <h1 className="text-2xl font-bold bg-linear-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
                 BD Healthcare
               </h1>
               <p className="text-xs text-gray-500 font-medium">Directory Pro</p>
-            </div>
+            </div> */}
           </div>
 
           {/* Desktop Navigation */}

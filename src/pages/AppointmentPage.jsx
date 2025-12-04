@@ -215,7 +215,7 @@ const AppointmentPage = () => {
                     {selectedDoctor && (
                         <div className="bg-linear-to-br from-purple-100 to-blue-100 rounded-2xl p-6 mb-8">
                             <div className="flex items-center gap-4">
-                                <img src={selectedDoctor.image} alt={selectedDoctor.name} className="w-16 h-16 rounded-full" />
+                                <img src={`/images/${selectedDoctor.gender}-doc.jpg`} alt={selectedDoctor.name} className="w-16 h-16 rounded-full" />
                                 <div>
                                     <h3 className="text-xl font-bold text-gray-900">{selectedDoctor.name}</h3>
                                     <p className="text-purple-600 font-semibold">{selectedDoctor.specialty}</p>
