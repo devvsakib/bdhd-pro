@@ -19,6 +19,8 @@ import NotFoundPage from '../pages/NotFoundPage';
 import { fetchFacilities } from '@/store/slices/facilitiesSlice';
 import { fetchDoctors } from '@/store/slices/doctorsSlice';
 import ScrollToTop from '@/components/ScrollToTop';
+import { fetchPharmacies } from '@/store/slices/pharmaSlice';
+import PharmacyPage from '@/pages/PharmacyPage';
 
 function AppRoutes() {
   const dispatch = useDispatch();
@@ -26,6 +28,7 @@ function AppRoutes() {
   useEffect(() => {
     dispatch(fetchFacilities());
     dispatch(fetchDoctors());
+    dispatch(fetchPharmacies());
   }, [dispatch]);
 
   return (
@@ -43,6 +46,7 @@ function AppRoutes() {
             <Route path="about" element={<AboutPage />} />
             <Route path="appointments/book" element={<AppointmentPage />} />
             <Route path="my-appointments" element={<MyAppointmentsPage />} />
+            <Route path="pharmacy" element={<PharmacyPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>

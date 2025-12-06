@@ -52,11 +52,9 @@ const AppointmentPage = () => {
 
     useEffect(() => {
         if (selectedFacility?.name && doctors.length > 0) {
-            // Filter doctors whose chamber matches the selected facility name
             const filtered = doctors.filter(doc =>
                 doc.chamber === selectedFacility.name
             );
-            console.log('Filtered doctors for facility:', selectedFacility.name, filtered);
             setDoctorsHere(filtered);
         } else {
             setDoctorsHere([]);
@@ -169,7 +167,7 @@ const AppointmentPage = () => {
         }
         return true;
     };
-    console.log(formData)
+
     return (
         <div className="min-h-screen bg-linear-to-br from-purple-50 via-blue-50 to-pink-50 py-16">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
