@@ -40,7 +40,7 @@ const FacilityFilters = () => {
                 key={category.id}
                 onClick={() => dispatch(setCategory(category.id))}
                 className={`flex items-center gap-2 px-5 py-3 rounded-xl font-semibold transition-all duration-300 ${filters.category === category.id
-                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-105'
+                    ? 'bg-linear-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-105'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
               >
@@ -61,7 +61,7 @@ const FacilityFilters = () => {
               key={idx}
               onClick={() => dispatch(setCity(city === 'All Cities' ? 'all' : city))}
               className={`px-5 py-3 rounded-xl font-semibold transition-all duration-300 ${(city === 'All Cities' && filters.city === 'all') || filters.city === city
-                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-105'
+                  ? 'bg-linear-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-105'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
             >

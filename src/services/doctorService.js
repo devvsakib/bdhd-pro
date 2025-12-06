@@ -18,7 +18,7 @@ const getAll = async () => ({
         },
         {
             id: 2,
-            gender: "male",
+            gender: "female",
             name: 'Dr. Farhana Rahman',
             specialty: 'Gynecologist',
             qualification: 'MBBS, FCPS (Gynecology)',

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { motion } from 'motion/react';
 import {
@@ -200,9 +200,9 @@ const FacilityDetailsPage = () => {
                                         ) : (
                                             <div className="grid md:grid-cols-2 gap-6">
                                                 {doctorsHere.map((doctor) => (
-                                                    <div key={doctor.id} className="bg-white rounded-2xl shadow-lg p-6 border border-gray-200/50 flex items-center gap-4">
+                                                    <Link to={`/doctors/${doctor.id}`} key={doctor.id} className="bg-white rounded-2xl shadow-lg p-6 border border-gray-200/50 flex items-center gap-4">
                                                         <img
-                                                            src={doctor.image}
+                                                            src={`/images/${doctor.gender}-doc.jpg`}
                                                             alt={doctor.name}
                                                             className="w-20 h-20 rounded-full object-cover border-2 border-blue-600"
                                                         />
@@ -211,7 +211,7 @@ const FacilityDetailsPage = () => {
                                                             <p className="text-gray-600">{doctor.specialty}</p>
                                                             <p className="text-gray-500 text-sm mt-1">Experience: {doctor.experience} years</p>
                                                         </div>
-                                                    </div>
+                                                    </Link>
                                                 ))}
                                             </div>
                                         )}

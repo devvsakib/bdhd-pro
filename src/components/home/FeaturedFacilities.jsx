@@ -1,10 +1,10 @@
 import { Award, MapPin, Star } from "lucide-react";
 import React from "react";
 import { motion } from "motion/react";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const FeaturedFacilities = ({ mockData }) => {
-const navigate= useNavigate();
+    const navigate = useNavigate();
 
     return (
         <section className="py-28 bg-white">
@@ -19,7 +19,6 @@ const navigate= useNavigate();
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {mockData.facilities.map((facility, idx) => (
                         <motion.div
-onClick={() => navigate(`/facilities/${service.id}`)}
                             key={facility.id}
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -65,10 +64,10 @@ onClick={() => navigate(`/facilities/${service.id}`)}
                                     ))}
                                 </div>
 
-                                <button
- className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg">
+                                <Link to={`/facilities/${facility.id}`}
+                                    className="block text-center w-full bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg">
                                     View Details
-                                </button>
+                                </Link>
                             </div>
                         </motion.div>
                     ))}

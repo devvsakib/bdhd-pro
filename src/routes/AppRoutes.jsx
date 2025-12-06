@@ -18,6 +18,7 @@ import MyAppointmentsPage from '../pages/MyAppointmentsPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import { fetchFacilities } from '@/store/slices/facilitiesSlice';
 import { fetchDoctors } from '@/store/slices/doctorsSlice';
+import ScrollToTop from '@/components/ScrollToTop';
 
 function AppRoutes() {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ function AppRoutes() {
   return (
     <Provider store={store}>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<MainLayout />}>
             <Route index element={<HomePage />} />
