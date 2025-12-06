@@ -22,3 +22,29 @@ export function saveAppointmentToLocalStorage(appointment) {
         return null;
     }
 }
+
+export function updateAppointmentInLocalStorage(id, updates) {
+    try {
+        const existing = getAppointmentsFromLocalStorage();
+        const updated = existing.map(appt =>
+            appt.id === id ? { ...appt, ...updates } : appt
+        );
+        localStorage.setItem(KEY, JSON.stringify(updated));
+        return updated;
+    } catch (err) {
+        console.error('Failed to update appointment in localStorage', err);
+        return null;
+    }
+}
+
+export function deleteAppointmentFromLocalStorage(id) {
+    try {
+        const existing = getAppointmentsFromLocalStorage();
+        const filtered = existing.filter(appt => appt.id !== id);
+        localStorage.setItem(KEY, JSON.stringify(filtered));
+        return filtered;
+    } catch (err) {
+        console.error('Failed to delete appointment from localStorage', err);
+        return null;
+    }
+}
